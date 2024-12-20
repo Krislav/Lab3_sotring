@@ -14,10 +14,10 @@ typedef struct {
     int number_of_levels;
     float average_area;
 } inf; //Структура для данных
-typedef int (*Comparator)(inf a, inf b, PriorityOrder* order);
 typedef struct {
     int priority_field[9];
 } PriorityOrder;  // Массив приоритетов полей (индексы 0-8 соответствуют полям структуры)
+typedef int (*Comparator)(inf a, inf b, PriorityOrder* order);
 int compareElements(inf a, inf b, PriorityOrder* order); // Функция компоратор
 
 #endif

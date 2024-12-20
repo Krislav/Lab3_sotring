@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "struct_inf.h"
+#include <string.h>
 
 int compareElements(inf a, inf b, PriorityOrder* order) {
     // Если порядок не задан, использовать базовый порядок

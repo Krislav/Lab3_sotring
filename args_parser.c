@@ -1,5 +1,6 @@
 #include "struct_inf.h"
 #include "struct_stack.h"
+#include "sorting_method.h"
 #include "args_parser.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -54,7 +55,7 @@ void generateData(int count, const char* outputFile) {
     }
 
     for (int i = 0; i < count; ++i) {
-        fprintf(out, "Company%d,Micro%d,%d,%d,%d,%d,%d,%d,%.2f\n",
+        fprintf(out, "Company%d,Micro%d,%d,%d,%s,%s,%d,%d,%.2f\n",
                 i, i, rand() % 3 + 1, 1980 + rand() % 41, rand() % 2, rand() % 2,
                 rand() % 100 + 1, rand() % 20 + 1, (rand() % 1000) / 10.0);
     }
@@ -83,7 +84,7 @@ void sortData(const char* inputFile, const char* outputFile, const char* sortTyp
     char line[256];
     while (fgets(line, sizeof(line), in)) {
         inf data;
-        sscanf(line, "%127[^,],%127[^,],%d,%d,%d,%d,%d,%d,%f",
+        sscanf(line, "%127[^,],%127[^,],%d,%d,%s,%s,%d,%d,%f",
                data.company_name, data.surname, &data.type, &data.year,
                &data.elevator, &data.garbage_chute, &data.number_of_apartments,
                &data.number_of_levels, &data.average_area);
@@ -107,7 +108,7 @@ void sortData(const char* inputFile, const char* outputFile, const char* sortTyp
     while (!isEmpty(&stc)) {
         inf data;
         pop(&stc, &data);
-        fprintf(out, "%s,%s,%d,%d,%d,%d,%d,%d,%.2f\n",
+        fprintf(out, "%s,%s,%d,%d,%s,%s,%d,%d,%.2f\n",
                 data.company_name, data.surname, data.type, data.year,
                 data.elevator, data.garbage_chute, data.number_of_apartments,
                 data.number_of_levels, data.average_area);
