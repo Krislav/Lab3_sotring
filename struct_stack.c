@@ -3,20 +3,10 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-// Узел стека
-typedef struct elem {
-    inf data;
-    struct elem* next;
-} elem;
-
-// Структура для стека
-typedef struct {
-    elem* top;
-} stack;
-
 // Инициализация стека
 void initStack(stack* stc) {
     stc->top = NULL;
+    stc->size = 0;
 }
 
 // Проверка, пуст ли стек
