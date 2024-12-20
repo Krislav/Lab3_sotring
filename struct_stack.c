@@ -1,7 +1,7 @@
-#include "struct_stack.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "struct_stack.h"
 
 void initStack(stack* stc) {
     stc->top = NULL;
