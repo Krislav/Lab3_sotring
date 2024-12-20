@@ -1,6 +1,6 @@
 
-#ifndef STRUCT_LIST_H
-#define STRUCT_LIST_H
+#ifndef STRUCT_STACK_H
+#define STRUCT_STACK_H
 
 typedef struct elem{
     struct elem *previous;
@@ -19,7 +19,7 @@ typedef struct {
     char magazine_name[128];
     int year;
     int volume;
-    bool include_in_RINC;
+    int include_in_RINC;
     int number_of_pages;
     int citations;
 } inf; //Структура для данных
