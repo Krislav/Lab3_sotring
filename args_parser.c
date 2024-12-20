@@ -56,7 +56,8 @@ void generateData(int count, const char* outputFile) {
 
     for (int i = 0; i < count; ++i) {
         fprintf(out, "Company%d,Micro%d,%d,%d,%s,%s,%d,%d,%.2f\n",
-                i, i, rand() % 3 + 1, 1980 + rand() % 41, rand() % 2, rand() % 2,
+                i, i, rand() % 3 + 1, 1980 + rand() % 41,
+                rand() % 2 ? "true" : "false", rand() % 2 ? "true" : "false",
                 rand() % 100 + 1, rand() % 20 + 1, (rand() % 1000) / 10.0);
     }
 
@@ -64,6 +65,7 @@ void generateData(int count, const char* outputFile) {
         fclose(out);
     }
 }
+
 
 void sortData(const char* inputFile, const char* outputFile, const char* sortType) {
     FILE* in = inputFile ? fopen(inputFile, "r") : stdin;
@@ -84,17 +86,21 @@ void sortData(const char* inputFile, const char* outputFile, const char* sortTyp
     char line[256];
     while (fgets(line, sizeof(line), in)) {
         inf data;
-        sscanf(line, "%127[^,],%127[^,],%d,%d,%s,%s,%d,%d,%f",
+        char temp_elevator[6], temp_garbage_chute[6];
+        sscanf(line, "%127[^,],%127[^,],%d,%d,%5[^,],%5[^,],%d,%d,%f",
                data.company_name, data.surname, &data.type, &data.year,
-               &data.elevator, &data.garbage_chute, &data.number_of_apartments,
+               temp_elevator, temp_garbage_chute, &data.number_of_apartments,
                &data.number_of_levels, &data.average_area);
+
+        data.elevator = (strcmp(temp_elevator, "true") == 0);
+        data.garbage_chute = (strcmp(temp_garbage_chute, "true") == 0);
+
         push(&stc, data);
     }
 
     PriorityOrder order = { {0, 1, 2, 3, 4, 5, 6, 7, 8} }; // Базовый порядок сортировки
 
     if (strcmp(sortType, "desc") == 0) {
-        // Для убывающей сортировки изменяем порядок приоритетов
         for (int i = 0; i < 9; ++i) {
             order.priority_field[i] = 8 - i;
         }
@@ -110,8 +116,8 @@ void sortData(const char* inputFile, const char* outputFile, const char* sortTyp
         pop(&stc, &data);
         fprintf(out, "%s,%s,%d,%d,%s,%s,%d,%d,%.2f\n",
                 data.company_name, data.surname, data.type, data.year,
-                data.elevator, data.garbage_chute, data.number_of_apartments,
-                data.number_of_levels, data.average_area);
+                data.elevator ? "true" : "false", data.garbage_chute ? "true" : "false",
+                data.number_of_apartments, data.number_of_levels, data.average_area);
     }
 
     if (in != stdin) fclose(in);
@@ -133,12 +139,24 @@ void printData(const char* inputFile, const char* outputFile) {
     }
 
     char line[256];
+    fprintf(out, "%-15s %-15s %-10s %-5s %-8s %-12s %-10s %-8s %-10s\n",
+        "Company Name", "Microdistrict", "Type", "Year", "Elevator",
+        "Garbage Chute", "Apartments", "Levels", "Avg Area");
+
     while (fgets(line, sizeof(line), in)) {
-        fprintf(out, "%-15s %-15s %-10s %-5s %-8s %-12s %-10s %-8s %-10s\n",
-                "Company Name", "Microdistrict", "Type", "Year", "Elevator",
-                "Garbage Chute", "Apartments", "Levels", "Avg Area");
-        fprintf(out, "%s", line);
+        char company_name[128], surname[128], elevator[6], garbage_chute[6];
+        int type, year, number_of_apartments, number_of_levels;
+        float average_area;
+
+        if (sscanf(line, "%127[^,],%127[^,],%d,%d,%5[^,],%5[^,],%d,%d,%f",
+                   company_name, surname, &type, &year, elevator, garbage_chute,
+                   &number_of_apartments, &number_of_levels, &average_area) == 9) {
+            fprintf(out, "%-15s %-15s %-10d %-5d %-8s %-12s %-10d %-8d %-10.2f\n",
+                    company_name, surname, type, year, elevator, garbage_chute,
+                    number_of_apartments, number_of_levels, average_area);
+        }
     }
+
 
     if (in != stdin) fclose(in);
     if (out != stdout) fclose(out);
