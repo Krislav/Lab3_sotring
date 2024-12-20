@@ -21,6 +21,7 @@ bool push(stack* stc, inf value) {
     new_elem->data = value;
     new_elem->next = stc->top;
     stc->top = new_elem;
+    ++stc->size;
     return true;
 }
 
@@ -32,6 +33,7 @@ bool pop(stack* stc, inf* outValue) {
     elem* temp = stc->top;
     *outValue = temp->data;
     stc->top = stc->top->next;
+    --stc->size;
     free(temp);
     return true;
 }
