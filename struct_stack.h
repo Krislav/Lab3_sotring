@@ -3,25 +3,23 @@
 #define STRUCT_STACK_H
 
 typedef struct elem{
-    struct elem *previous;
     inf data;
     struct elem *next;
-} elem; //Элемент двухсвязного списка
+} elem; //Элемент стека
 typedef struct {
-    elem *head;
-    elem *tail;
+    elem *top;
     long size;
-} list; //Двухсвязный список
+} stack; //Стек
 typedef struct {
-    char name[128];
+    char company_name[128];
     char surname[128];
-    char initials[2];
-    char magazine_name[128];
+    int type; // 1-панельный, 2-кирпичный, 3-монолитный
     int year;
-    int volume;
-    int include_in_RINC;
-    int number_of_pages;
-    int citations;
+    int elevator;
+    int garbage_chute;
+    int number_of_apartments;
+    int number_of_levels;
+    float average_area;
 } inf; //Структура для данных
 
 #endif
