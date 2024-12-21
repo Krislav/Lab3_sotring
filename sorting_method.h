@@ -5,6 +5,6 @@
 #include "struct_stack.h"
 #include "struct_inf.h"
 
-bool selectionSortStack(stack* stc, Comparator compare, PriorityOrder* order); //Выполняет сортировку.
+bool selectionSortStack(stack* stc, Comparator compare, PriorityOrder* order); //Выполняет сортировку выбором.
 
 #endif

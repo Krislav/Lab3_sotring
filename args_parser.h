@@ -14,8 +14,8 @@ typedef struct {
     const char* sortType; // Тип сортировки: "asc" или "desc"
 } ParsedArgs;
 ParsedArgs parseArguments(int argc, char* argv[]);
-void generateData(int count, const char* outputFile);
-void sortData(const char* inputFile, const char* outputFile, const char* sortType);
-void printData(const char* inputFile, const char* outputFile);
+void generateData(int count, const char* outputFile); //Функция выполняет генерацию данных
+void sortData(const char* inputFile, const char* outputFile, const char* sortType); //Функция выполняет сортировку данных
+void printData(const char* inputFile, const char* outputFile); //Функция выполняет вывод данных
 
 #endif
