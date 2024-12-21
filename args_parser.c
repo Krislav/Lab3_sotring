@@ -56,7 +56,7 @@ void generateData(int count, const char* outputFile) {
 
     for (int i = 0; i < count; ++i) {
         fprintf(out, "Company%d,Micro%d,%d,%d,%s,%s,%d,%d,%.2f\n",
-                i, i, rand() % 3 + 1, 1980 + rand() % 41,
+                rand() % (count*2), rand() % (count*2), rand() % 3 + 1, 1980 + rand() % 41,
                 rand() % 2 ? "true" : "false", rand() % 2 ? "true" : "false",
                 rand() % 100 + 1, rand() % 20 + 1, (rand() % 1000) / 10.0);
     }

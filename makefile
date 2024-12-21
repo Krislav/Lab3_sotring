@@ -7,7 +7,7 @@ OBJS = $(SRCS:.c=.o)
 
 TARGET = var
 
-.PHONY: all clean
+.PHONY: all clean cleanall
 
 all: $(TARGET)
 
@@ -18,4 +18,7 @@ $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
+	rm -rf $(OBJS)
+
+cleanall:
 	rm -rf $(OBJS) $(TARGET)
